@@ -1,76 +1,42 @@
 "use client";
 import Flex from "@/components/Flex";
-import { useEffect, useState } from "react";
+import { ModeToggle } from "@/components/ModeToggle";
+import { Button } from "@/components/ui/button"
+import { If, Then, Else } from "react-if";
 import Image from "next/image";
 import { useChat } from "@ai-sdk/react";
-import { useTheme } from "next-themes";
+import { UIMessage } from "ai";
 
-export default function Home() {
-  const { setTheme, theme } = useTheme();
-  // useEffect(() => {
-  //   setTheme("light");
-  // }, []);
-  const { messages, input, handleInputChange, handleSubmit, status, error, stop } = useChat({
-    api: "/api/chat",
-    onError: (err) => {
-      console.log("_ERR", err.cause);
-    }
-  });
-  return (
-    <>
-      <Flex row={false}>
-        <Flex justify="end">
-          <p role="button">Talk to a human</p>
-          <p>{theme || ""}</p>
-        </Flex>
-        <Flex>
-          <h1 className="font-inter font-bold text-4xl">Hello 👋, I am Eclipse.</h1>
-        </Flex>
-        <></>
-      </Flex>
-      {/* <form onSubmit={handleSubmit}>
-        <input name="prompt" value={input} onChange={handleInputChange} />
-        <button type="submit">Submit</button>
-      </form> */}
-    </>
-  );
+interface messageAreaProps {
+  messages: UIMessage[]
+}
+const MessagesArea = ({ messages }: messageAreaProps) => {
+  return (<>
+    <If condition={messages.length == 0}>
+      <Then>
+        <div className="flex flex-col">
+          <h1 className="font-inter font-bold text-4xl mb-4">Hello 👋, I am Eclipse.</h1>
+          <p className="whitespace-pre-wrap max-w-[40ch]">{`I am a software engineer based in Paris, my current focus is to create AI apps that looks like magic to the user. Ask me any question below (it's powered by AI ✨)`}</p>
+        </div>
+      </Then>
+    </If></>)
 }
 
-// export default function Home() {
-//   const [message, setMessage] = useState<string>("");
-//   const [response, setResponse] = useState("(no response yet)");
-//   const [isLoading, setIsLoading] = useState(false);
-  
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-//     setIsLoading(true);
-    
-//     try {
-//       const result = await completion(message);
-//       setResponse(result.content || "");
-//     } catch (error) {
-//       console.error('Error:', error);
-//       setResponse('Failed to get response');
-//     } finally {
-//       setIsLoading(false);
-//       setMessage("");
-//     }
-//   };
-
-//   return (
-//     <>
-//       <form onSubmit={handleSubmit}>
-//         <input
-//           className="bg-gray-800 text-white focus:bg-gray-700 disabled:bg-gray-600"
-//           value={message} 
-//           onChange={(e) => setMessage(e.target.value)}
-//           disabled={isLoading}
-//         />
-//         <button type="submit" disabled={isLoading}>
-//           {isLoading ? 'Sending...' : 'Send'}
-//         </button>
-//       </form>
-//       <h1>{response}</h1>
-//     </>
-//   );
-// }
+export default function Home() {
+  const { messages, input, handleInputChange, handleSubmit, status, error, stop } = useChat({
+  });
+  return (
+    <main className="w-full flex-col">
+      <Flex justify="between">
+        <div className="w-full"></div>
+        <Flex gap={2}>
+          <ModeToggle />
+          <Button variant="ghost">{"Talk to a human"}</Button>
+        </Flex>
+      </Flex>
+      <Flex row={false} className="w-2/3 mx-auto flex-1">
+        <MessagesArea messages={messages} />
+      </Flex>
+    </main>
+  );
+}

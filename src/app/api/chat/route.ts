@@ -2,8 +2,7 @@ import { streamText } from 'ai';
 import { createAzure } from '@ai-sdk/azure';
 
 const azure = createAzure({
-  resourceName: "ai-eclipsetoure3139ai863411562242",
-  // baseURL: process.env.AZURE_BASE_URL,
+  resourceName: process.env.AZURE_RESOURCE_NAME,
   apiKey: process.env.AZURE_API_KEY,
 });
 
