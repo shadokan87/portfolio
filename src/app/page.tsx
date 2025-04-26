@@ -58,7 +58,7 @@ const LoadingDots = () => {
 };
 
 export default function Home() {
-  const presetQuestions = ["generate a random poem", "tell me about some interesting project you have built", "what is your github", "do you have social media", "where did you study"];
+  const presetQuestions = ["tell me about some interesting project you have built", "what is your github", "do you have social media", "where did you study"];
   const colors = [
     "#FFB3BA", // pastel pink
     "#BAFFC9", // pastel green
