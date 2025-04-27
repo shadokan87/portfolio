@@ -1,6 +1,6 @@
 import { UIMessage } from "ai";
 
-const initialMessages: UIMessage[] = [
+export const initialMessages: UIMessage[] = [
     { id: "1", role: "user", content: "What kind of projects do you work on?", parts: [] },
     { id: "2", role: "assistant", content: "I specialize in building AI-powered applications using modern web technologies like React, TypeScript, and Next.js. Currently, I'm focused on creating intuitive user interfaces that integrate seamlessly with AI capabilities.", parts: [] },
     { id: "3", role: "user", content: "What programming languages are you most comfortable with?", parts: [] },

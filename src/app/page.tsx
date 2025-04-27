@@ -9,6 +9,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { initialMessages} from "../misc";
+
+//remix icon
+import {RiLinkedinLine, RiPhoneLine, RiAtLine } from "@remixicon/react";
 
 // ai sk
 import { useChat } from "@ai-sdk/react";
@@ -19,7 +23,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/components/ui/tooltip";
 
 // Others
 import { If, Then, Else, When } from "react-if";
@@ -72,7 +76,7 @@ export default function Home() {
   ];
 
   const { messages, input, handleInputChange, handleSubmit, status, error, stop, setInput } = useChat({
-    initialMessages: [],
+    initialMessages,
   });
   const [talkToHuman, setTalkToHuman] = useState<boolean>(false);
 
@@ -108,16 +112,16 @@ export default function Home() {
     {messages.map((message, index) => {
       const isAssistant = message.role == "assistant";
       return <Flex col key={index}>
-        <Flex gap={2} className="items-center">
+        {/* <Flex gap={2} className="items-center"> */}
           <p className="opacity-50">{isAssistant ? "Ai" : "You"}</p>
-          <When condition={index == messages.length - 1 && isAssistant && (status == "streaming" || status == "submitted")}>
-            <LoadingDots />
-          </When>
-        </Flex>
+        {/* </Flex> */}
         <div
           className="prose dark:prose-invert"
           dangerouslySetInnerHTML={{ __html: marked(message.content) }}
         />
+          <When condition={index == messages.length - 1 && isAssistant && (status == "streaming" || status == "submitted")}>
+            <LoadingDots />
+          </When>
       </Flex>
     })}
   </Flex>
@@ -126,15 +130,15 @@ export default function Home() {
     <h1 className="font-inter font-bold text-4xl">Contact me</h1>
     <Flex col gap={4} className="text-lg">
       <Flex gap={2} className="items-center">
-        <p>email </p>
+        <RiAtLine />
         <a href="mailto:eclipse.toure@outlook.fr" className="hover:underline">eclipse.toure@outlook.fr</a>
       </Flex>
       <Flex gap={2} className="items-center">
-        <p>linkedin</p>
+        <RiLinkedinLine />
         <a href="https://linkedin.com/in/eclipse-toure" target="_blank" rel="noopener noreferrer" className="hover:underline">linkedin.com/in/eclipse-toure</a>
       </Flex>
       <Flex gap={2} className="items-center">
-        <p>phone number</p>
+        <RiPhoneLine />
         <a href="tel:+33625293138" className="hover:underline">+33 6 25 29 31 38</a>
       </Flex>
     </Flex>
@@ -156,7 +160,7 @@ export default function Home() {
     );
   })}</Flex>
 
-  const Chat = () => {
+  const chat = () => {
     return <Flex col className="w-full md:w-2/3 mx-auto max-h-[calc(100vh-4rem)]">
       <Flex col gap={4} className="flex-1 overflow-hidden flex-wrap">
         <div className="flex flex-1 overflow-y-auto flex-col gap-4" ref={messageContainerRef}>
@@ -225,7 +229,7 @@ export default function Home() {
       </Flex>
       <If condition={talkToHuman == false}>
         <Then>
-          <Chat />
+          {chat}
         </Then>
         <Else>
           {talkToHumanNode}
