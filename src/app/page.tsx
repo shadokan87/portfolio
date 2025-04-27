@@ -76,7 +76,7 @@ export default function Home() {
   ];
 
   const { messages, input, handleInputChange, handleSubmit, status, error, stop, setInput } = useChat({
-    initialMessages,
+    initialMessages: [],
   });
   const [talkToHuman, setTalkToHuman] = useState<boolean>(false);
 
