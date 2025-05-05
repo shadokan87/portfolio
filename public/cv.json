@@ -91,6 +91,12 @@
       ]
     }
   ],
+  "creative": {
+    "figma": true,
+    "adobe photoshop": true,
+    "adobe after effects": true,
+    "designPortfolioWebsite": "https://eclipse-design.notion.site/My-design-portfolio-1ea1831b311380d1a4a5daaefc8310ff",
+  },
   "programmingLanguages": [
     "TypeScript",
     "JavaScript",
